@@ -25,11 +25,6 @@ public class BaseService {
     }
 
     public static int decode(String shortUrl) {
-        if(shortUrl.length() > Integer.MAX_VALUE) {
-            String msg = String.format("value '%s' greater than MAX_VALUE", shortUrl);
-            throw new BaseException(msg);
-        }
-
         char[] charUrl = shortUrl.toCharArray();
         long result = 0;
         int symbol;
@@ -39,7 +34,7 @@ public class BaseService {
             symbol = ALLOWEDSTRINGS.indexOf(charUrl[i]);
 
             if(symbol == -1) {
-                String msg = String.format("value '%s' is not a base62 number");
+                String msg = String.format("value '%s' is not a base62 number", shortUrl);
                 throw new BaseException(msg);
             }
 

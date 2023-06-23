@@ -25,6 +25,15 @@ public class Base62Test {
         assertEquals("0", BaseService.encode(0));
     }
 
+    @Test
+    void ifNumberGreaterThanMax() {
+        assertThrows(BaseException.class, () -> BaseService.decode("2lkCB12"));
+    }
+
+    @Test
+    void ifOverflowInteger() {
+        assertThrows(BaseException.class, () -> BaseService.decode("2lkCB2"));
+    }
 
     private static Stream<Arguments> data() {
         return Stream.of(Arguments.of(10, "a"), Arguments.of(1024, "gw"), Arguments.of(2147483647, "2lkCB1"));
@@ -34,5 +43,11 @@ public class Base62Test {
     @MethodSource("data")
     void correctEncode(int base10, String base62) {
         assertThat(BaseService.encode(base10), is(base62));
+    }
+
+    @ParameterizedTest
+    @MethodSource("data")
+    void correctDecode(int base10, String base62) {
+        assertThat(BaseService.decode(base62), is(base10));
     }
 }
