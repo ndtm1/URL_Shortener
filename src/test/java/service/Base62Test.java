@@ -1,0 +1,38 @@
+package service;
+
+
+import com.url.shortener.service.BaseException;
+import com.url.shortener.service.BaseService;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+import java.util.stream.Stream;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+public class Base62Test {
+
+    @Test
+    void throwIfNegativeNumber() {
+        assertThrows(BaseException.class, () -> BaseService.encode(-1));
+    }
+
+    @Test
+    void ifParameterIsZero() {
+        assertEquals("0", BaseService.encode(0));
+    }
+
+
+    private static Stream<Arguments> data() {
+        return Stream.of(Arguments.of(10, "a"), Arguments.of(1024, "gw"), Arguments.of(2147483647, "2lkCB1"));
+    }
+
+    @ParameterizedTest
+    @MethodSource("data")
+    void correctEncode(int base10, String base62) {
+        assertThat(BaseService.encode(base10), is(base62));
+    }
+}
