@@ -15,24 +15,26 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class Base62Test {
 
+    BaseService baseService = new BaseService();
+
     @Test
     void throwIfNegativeNumber() {
-        assertThrows(BaseException.class, () -> BaseService.encode(-1));
+        assertThrows(BaseException.class, () -> baseService.encode(-1));
     }
 
     @Test
     void ifParameterIsZero() {
-        assertEquals("0", BaseService.encode(0));
+        assertEquals("0", baseService.encode(0));
     }
 
     @Test
     void ifNumberGreaterThanMax() {
-        assertThrows(BaseException.class, () -> BaseService.decode("2lkCB12"));
+        assertThrows(BaseException.class, () -> baseService.decode("2lkCB12"));
     }
 
     @Test
     void ifOverflowInteger() {
-        assertThrows(BaseException.class, () -> BaseService.decode("2lkCB2"));
+        assertThrows(BaseException.class, () -> baseService.decode("2lkCB2"));
     }
 
     private static Stream<Arguments> data() {
@@ -42,12 +44,12 @@ public class Base62Test {
     @ParameterizedTest
     @MethodSource("data")
     void correctEncode(int base10, String base62) {
-        assertThat(BaseService.encode(base10), is(base62));
+        assertThat(baseService.encode(base10), is(base62));
     }
 
     @ParameterizedTest
     @MethodSource("data")
     void correctDecode(int base10, String base62) {
-        assertThat(BaseService.decode(base62), is(base10));
+        assertThat(baseService.decode(base62), is(base10));
     }
 }
