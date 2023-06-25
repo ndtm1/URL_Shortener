@@ -4,7 +4,7 @@ public class BaseService {
     private static final String ALLOWEDSTRINGS = "0123456789abcdefghijklmnopqrstuvwxyzABCDIFGHIJKLMNOPQRSTUVWXYZ";
     private static final int BASE = 62;
 
-    public static String encode(int x) {
+    public String encode(int x) {
         int remainder = 0;
         StringBuilder result = new StringBuilder();
 
@@ -24,7 +24,7 @@ public class BaseService {
         return result.reverse().toString();
     }
 
-    public static int decode(String shortUrl) {
+    public int decode(String shortUrl) {
         char[] charUrl = shortUrl.toCharArray();
         long result = 0;
         int symbol;
