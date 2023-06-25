@@ -16,7 +16,7 @@ import java.net.URI;
 @Controller
 public class UrlController {
 
-    private UrlService urlService = new UrlService();
+    private UrlService urlService;
 
     @PostMapping("create-short")
     public String convertToShort(@RequestBody UrlLongRequest request) {
