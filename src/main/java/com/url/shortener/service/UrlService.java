@@ -24,14 +24,12 @@ public class UrlService {
 
         Url entity = repo.save(url);
 
-        System.out.println(entity.getId());
-
         return baseService.encode(entity.getId());
     }
 
     public String getLongUrl(String shortUrl) {
         int id = baseService.decode(shortUrl);
-        Url longUrl = repo.findById(id).orElseThrow(() ->new EntityNotFoundException("No entity found " + shortUrl));
+        Url longUrl = repo.findById(id).orElseThrow(() -> new EntityNotFoundException("No entity found " + shortUrl));
 
         return longUrl.getLongUrl();
     }
