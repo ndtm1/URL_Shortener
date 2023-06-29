@@ -1,13 +1,17 @@
 package com.url.shortener.dto;
 
-import java.time.LocalDate;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.Date;
 
+@ApiModel(description = "Request object for POST method")
 public class UrlLongRequest {
-    private int id;
 
+    @ApiModelProperty(required = true, notes = "Url to convert to short")
     private String longUrl;
 
+    @ApiModelProperty(notes = "Expiration datetime of url")
     private Date expiresDate;
 
     public String getLongUrl() {
